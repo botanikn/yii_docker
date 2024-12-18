@@ -1,0 +1,32 @@
+version: '2'
+services:
+  php:
+    image: yiisoftware/yii2-php:7.4-apache
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - '8000:80'
+    networks:
+      main:
+        - ipv4_address: 192.168.1.1
+  postgres:
+    image: postgres:latest
+    volumes:
+      - /home/u1/pet-project/post-data:/var/lib/postgres/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: 'pet-project'
+      POSTGRES_USER: 'u1'
+      POSTGRES_PASSWORD: '12345'
+    networks:
+      main:
+        - ipv4_address: 192.168.1.2
+networks:
+  main:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.1.0/24"
