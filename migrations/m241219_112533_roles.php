@@ -3,15 +3,19 @@
 use yii\db\Migration;
 
 /**
- * Class m241218_134558_users
+ * Class m241219_112533_roles
  */
-class m241218_134558_users extends Migration
+class m241219_112533_roles extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
+
+        $this->createTable('roles', [
+           'id' => $this->primaryKey(),
+        ]);
 
     }
 
@@ -20,7 +24,7 @@ class m241218_134558_users extends Migration
      */
     public function safeDown()
     {
-        echo "m241218_134558_users cannot be reverted.\n";
+        echo "m241219_112533_roles cannot be reverted.\n";
 
         return false;
     }
@@ -34,7 +38,7 @@ class m241218_134558_users extends Migration
 
     public function down()
     {
-        echo "m241218_134558_users cannot be reverted.\n";
+        echo "m241219_112533_roles cannot be reverted.\n";
 
         return false;
     }
