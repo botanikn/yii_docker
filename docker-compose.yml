@@ -36,6 +36,8 @@ services:
       POSTGRES_DB: pet-project
       POSTGRES_USER: u1
       POSTGRES_PASSWORD: 12345
+    ports:
+      - 5432:5432
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:

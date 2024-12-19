@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m241219_112533_roles
+ * Class m241219_120411_categories
  */
-class m241219_112533_roles extends Migration
+class m241219_120411_categories extends Migration
 {
     /**
      * {@inheritdoc}
@@ -13,10 +13,10 @@ class m241219_112533_roles extends Migration
     public function safeUp()
     {
 
-        $this->createTable('roles', [
+        $this->createTable('categories', [
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull()->unique(),
-            'description' => $this->text()->notNull(),
+            'description' => $this->text(),
             'createTime' => $this->dateTime()->notNull(),
             'updateTime' => $this->dateTime()->notNull(),
         ]);
@@ -28,7 +28,7 @@ class m241219_112533_roles extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('roles');
+        $this->dropTable('categories');
     }
 
     /*
@@ -40,7 +40,7 @@ class m241219_112533_roles extends Migration
 
     public function down()
     {
-        echo "m241219_112533_roles cannot be reverted.\n";
+        echo "m241219_120411_categories cannot be reverted.\n";
 
         return false;
     }
