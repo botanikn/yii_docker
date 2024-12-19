@@ -21,6 +21,19 @@ class m241219_112533_roles extends Migration
             'updateTime' => $this->dateTime()->notNull(),
         ]);
 
+        $this->insert('roles', [
+            'name' => 'admin',
+            'description' => 'for admin interface',
+            'createTime' => date('Y-m-d H:i:s', time()),
+            'updateTime' => date('Y-m-d H:i:s', time())
+        ]);
+        $this->insert('roles', [
+            'name' => 'client',
+            'description' => 'for client interface',
+            'createTime' => date('Y-m-d H:i:s', time()),
+            'updateTime' => date('Y-m-d H:i:s', time())
+        ]);
+
     }
 
     /**

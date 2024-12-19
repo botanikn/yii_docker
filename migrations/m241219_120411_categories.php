@@ -21,6 +21,13 @@ class m241219_120411_categories extends Migration
             'updateTime' => $this->dateTime()->notNull(),
         ]);
 
+        $this->insert('categories', [
+            'name' => 'sport',
+            'description' => 'sport inventory and other',
+            'createTime' => date('Y-m-d H:i:s', time()),
+            'updateTime' => date('Y-m-d H:i:s', time())
+        ]);
+
     }
 
     /**
