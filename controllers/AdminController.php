@@ -2,14 +2,11 @@
 
 namespace app\controllers;
 
-use yii\web\Controller;
-
-class AdminController extends Controller {
+class AdminController extends UserController {
 
     public function actionIndex() {
-        if (\Yii::$app->user->identity->roleID != 1) {
-            return $this->goHome();
-        }
+
+        $this->actionAppropUser(1);
         return $this->render('index');
     }
 
