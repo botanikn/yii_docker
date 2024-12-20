@@ -51,6 +51,7 @@ $config = [
         ],
         */
     ],
+    'homeUrl' => ['/registration/index'],
     'params' => $params,
 ];
 
