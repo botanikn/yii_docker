@@ -18,6 +18,8 @@ class CategoryController extends UserController {
     }
 
     public function actionReadall() {
+
+        $this->actionAppropUser(1);
         $allCategory = $this->categoryModel->find()->all();
 
         return $this->render('readall', ['allCategory' => $allCategory]);
