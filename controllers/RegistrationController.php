@@ -12,10 +12,10 @@ class RegistrationController extends Controller
     public function actionIndex() {
         if (!Yii::$app->user->isGuest) {
             if (Yii::$app->user->identity->roleID == 1) {
-                return $this->redirect('/admin/index');
+                return $this->redirect('admin/index');
             }
             else if (Yii::$app->user->identity->roleID == 2) {
-                return $this->redirect('/client/index');
+                return $this->redirect('client/index');
             }
         }
         $model = new RegistrationForm();
@@ -28,7 +28,7 @@ class RegistrationController extends Controller
             $user->lastName = $model->lastName;
             $user->email = $model->email;
             $user->phone = $model->phone;
-            $user->roleID = 1;
+            $user->roleID = 2;
             $user->createTime = date('Y-m-d H:i:s', time());
             $user->updateTime = date('Y-m-d H:i:s', time());
 

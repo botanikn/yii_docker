@@ -3,6 +3,7 @@
 namespace app\models;
 use yii\db\ActiveRecord;
 use \yii\web\IdentityInterface;
+use Yii;
 
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -37,10 +38,10 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Finds user by username
      *
-     * @param string $username
+     * @param string $login
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($login)
     {
 //        foreach (self::$users as $user) {
 //            if (strcasecmp($user['username'], $username) === 0) {
