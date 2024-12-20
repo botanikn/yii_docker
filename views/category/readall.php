@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 
+$this->params['breadcrumbs'][] = 'Categories';
+
 ?>
 <div class="category-readall-header">
     <h1>Categories</h1>

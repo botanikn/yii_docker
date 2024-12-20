@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['/category/readall']];
+$this->params['breadcrumbs'][] = 'New Category';
+
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
