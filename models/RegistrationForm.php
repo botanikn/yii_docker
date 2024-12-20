@@ -10,6 +10,7 @@ class RegistrationForm extends Model {
     public $firstName;
     public $lastName;
     public $email;
+    public int $phone;
 
     // Валидация параметров с формы
     public function rules() {
