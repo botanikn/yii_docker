@@ -11,7 +11,12 @@ class RegistrationController extends Controller
 
     public function actionIndex() {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            if (Yii::$app->user->identity->roleID == 1) {
+                return $this->redirect('/admin/index');
+            }
+            else if (Yii::$app->user->identity->roleID == 2) {
+                return $this->redirect('/client/index');
+            }
         }
         $model = new RegistrationForm();
 

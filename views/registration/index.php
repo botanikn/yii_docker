@@ -7,6 +7,8 @@ use app\controllers\RegistrationController;
 ?>
 <?php $form = ActiveForm::begin(); ?>
 
+    <h1>Registration</h1>
+
     <?= $form->field($model, 'login') ?>
     <?= $form->field($model, 'password')->passwordInput() ?>
     <?= $form->field($model, 'firstName') ?>
