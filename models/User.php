@@ -1,32 +1,15 @@
 <?php
 
 namespace app\models;
+use yii\db\ActiveRecord;
+use \yii\web\IdentityInterface;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
+    public static function tableName() {
+        return '{{%users}}';
+    }
 
     /**
      * {@inheritdoc}
@@ -80,7 +63,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+//        return $this->authKey;
     }
 
     /**
@@ -88,7 +71,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+//        return $this->authKey === $authKey;
     }
 
     /**
