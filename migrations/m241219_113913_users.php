@@ -19,7 +19,7 @@ class m241219_113913_users extends Migration
             'firstName' => $this->string(50)->notNull(),
             'lastName' => $this->string(50)->notNull(),
             'email' => $this->string(50)->notNull(),
-            'phone' => $this->string(15),
+            'phone' => $this->string(20),
             'roleID' => $this->integer()->notNull(),
             'createTime' => $this->dateTime()->notNull(),
             'updateTime' => $this->dateTime()->notNull(),

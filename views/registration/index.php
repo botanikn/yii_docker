@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\controllers\RegistrationController;
 
 ?>
 <?php $form = ActiveForm::begin(); ?>
