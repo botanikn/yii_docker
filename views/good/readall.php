@@ -6,8 +6,8 @@ $this->params['breadcrumbs'][] = 'Goods';
 
 ?>
 <div class="good-readall-header">
-    <h1>Categories</h1>
-    <?= Html::a('New category', ['good/create'], ['class' => ['profile-link', 'index-a', 'small-buttons']]); ?>
+    <h1>Goods in catalog</h1>
+    <?= Html::a('New good', ['good/create'], ['class' => ['profile-link', 'index-a', 'small-buttons']]); ?>
 </div>
 
 <div class="readll-grid">
