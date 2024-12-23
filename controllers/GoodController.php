@@ -27,9 +27,9 @@ class GoodController extends UserController {
 
         $query = new Query();
         $allGoodsWithCategories = $query
-            ->selectColumn(['goodscatalog.id', 'categories.name AS category'])
+            ->select(['goodscatalog.id', 'categories.name AS category'])
             ->from('goodscatalog')
-            ->innerJoin('categories', 'goodscatalog.categoryID = categories.id')
+            ->innerJoin('categories', '"categoryID" = categories.id')
             ->all();
 
         var_dump($allGoodsWithCategories);
