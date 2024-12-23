@@ -36,24 +36,32 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+
+    $menuItems = [['label' => 'Sign Up', 'url' => ['/registration/index']]];
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    } else {
+        // Элемент выхода для авторизованных пользователей
+        $menuItems[] = [
+            'label' => 'Logout (' . Html::encode(Yii::$app->user->identity->login) . ')',
+            'url' => '#',
+            'linkOptions' => [
+                'onclick' => '$("#logout-form").submit(); return false;',
+            ],
+        ];
+        if (\Yii::$app->user->identity->roleID == 1) {
+            $menuItems[] = ['label' => 'Categories', 'url' => ['/category/readall']];
+            $menuItems[] = ['label' => 'Catalog', 'url' => ['/good/readall']];
+            $menuItems[] = ['label' => 'Orders', 'url' => ['/order/readall']];
+        }
+    }
+
+    echo Html::beginForm(['/site/logout'], 'post', ['id' => 'logout-form']);
+    echo Html::endForm();
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
-        'items' => [
-//            ['label' => 'Home', 'url' => ['/site/index']],
-//            ['label' => 'About', 'url' => ['/site/about']],
-//            ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Sign Up', 'url' => ['/registration/index']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->login . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-        ]
+        'items' => $menuItems
     ]);
     NavBar::end();
     ?>
