@@ -3,35 +3,34 @@
 use yii\db\Migration;
 
 /**
- * Class m241219_122145_goodsinorders
+ * Class m241223_142628_cartitems
  */
-class m241219_122145_goodsinorders extends Migration
+class m241223_142628_cartitems extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-
-        $this->createTable('goodsinorders', [
+        $this->createTable('cartitems', [
             'id' => $this->primaryKey(),
-            'name' => $this->text()->notNull()->unique(),
-            'orderID' => $this->integer()->notNull(),
+            'userID' => $this->integer()->notNull(),
             'goodID' => $this->integer()->notNull(),
+            'quantity' => $this->integer()->notNull(),
             'createTime' => $this->dateTime()->notNull(),
             'updateTime' => $this->dateTime()->notNull(),
         ]);
 
         $this->addForeignKey(
-            'fk-goodsinorders-orderID',
-            'goodsinorders',
-            'orderID',
-            'orders',
+            'fk-cartitems-userID',
+            'cartitems',
+            'userID',
+            'users',
             'id'
         );
         $this->addForeignKey(
-            'fk-goodsinorders-goodID',
-            'goodsinorders',
+            'fk-cartitems-goodID',
+            'cartitems',
             'goodID',
             'goodscatalog',
             'id'
@@ -44,7 +43,9 @@ class m241219_122145_goodsinorders extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('goodsinorders');
+        echo "m241223_142628_cartitems cannot be reverted.\n";
+
+        return false;
     }
 
     /*
@@ -56,7 +57,7 @@ class m241219_122145_goodsinorders extends Migration
 
     public function down()
     {
-        echo "m241219_122145_goodsinorders cannot be reverted.\n";
+        echo "m241223_142628_cartitems cannot be reverted.\n";
 
         return false;
     }
