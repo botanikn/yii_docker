@@ -1,0 +1,29 @@
+.cl-div-index-a {
+    display: grid;
+    grid-template-areas: "header header"
+    "cart order";
+    grid-template-columns: 50% 50%;
+}
+
+.cl-index-a {
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #313131;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    font-size: 20px;
+}
+
+.cl-index-a:first-child {
+    grid-area: header
+}
+.cl-index-a:nth-child(2) {
+    grid-area: cart;
+}
+.cl-index-a:nth-child(3) {
+    grid-area: order;
+}
