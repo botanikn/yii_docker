@@ -10,7 +10,6 @@ class GoodController extends UserController {
     public function init()
     {
         parent::init();
-        // Создаем экземпляр CategoryActiveRecord и помещаем его в свойство
         $this->goodModel = new GoodActiveRecord();
     }
 
@@ -19,6 +18,10 @@ class GoodController extends UserController {
         $allGoods = $this->goodModel->find()->all();
 
         return $this->render('readall', ['allGoods' => $allGoods]);
+    }
+
+    public function actionCreate() {
+        $this->actionAppropUser(1);
     }
 
 }
