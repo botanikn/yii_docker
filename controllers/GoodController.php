@@ -32,6 +32,11 @@ class GoodController extends UserController {
             ->innerJoin('categories', '"categoryID" = categories.id')
             ->all();
 
+        if (Yii::$app->request->isPost) {
+            var_dump(Yii::$app->request->post('id'));
+            die();
+        }
+
 //        $allGoods = $this->goodModel->find()->join('INNER JOIN', 'categories', 'categories.id = goodscatalog.categoryID')->all();
 
         return $this->render('readall', ['allGoods' => $allGoodsWithCategories]);
