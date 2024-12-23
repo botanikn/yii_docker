@@ -27,13 +27,11 @@ class GoodController extends UserController {
 
         $query = new Query();
         $allGoodsWithCategories = $query
-            ->select(['goodscatalog.id', 'categories.name AS category'])
+            ->select(['goodscatalog.*', 'categories.name AS category'])
             ->from('goodscatalog')
             ->innerJoin('categories', '"categoryID" = categories.id')
             ->all();
 
-        var_dump($allGoodsWithCategories);
-        die();
 //        $allGoods = $this->goodModel->find()->join('INNER JOIN', 'categories', 'categories.id = goodscatalog.categoryID')->all();
 
         return $this->render('readall', ['allGoods' => $allGoodsWithCategories]);
