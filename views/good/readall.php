@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Goods';
             <span class="category-create-span"> Name - <?= $good->name ?> </span>
             <span class="category-create-span"> Description - <?= $good->description ?> </span>
             <span class="category-create-span"> Price - <?= $good->price ?> </span>
-            <span class="category-create-span"> Category - <?= $good->description ?> </span>
+            <span class="category-create-span"> Category - <?= $good->categoryID ?> </span>
             <span class="category-create-span"> createTime - <?= $good->createTime ?> </span>
             <span class="category-create-span"> updateTime - <?= $good->updateTime ?> </span>
         </div>
