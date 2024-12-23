@@ -23,7 +23,7 @@ class GoodController extends UserController {
     }
 
     public function actionReadall() {
-        $this->actionAppropUser(1);
+//        $this->actionAppropUser(1);
 
         $query = new Query();
         $allGoodsWithCategories = $query
