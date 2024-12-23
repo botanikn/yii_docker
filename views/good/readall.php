@@ -14,12 +14,12 @@ $this->params['breadcrumbs'][] = 'Goods';
     <?php foreach ($allGoods as $good) { ?>
         <div class="category-one">
             <span class="category-create-span"> ID - <?= $good->id ?> </span>
-            <span class="category-create-span"> Name - <?= $good->name ?> </span>
-            <span class="category-create-span"> Description - <?= $good->description ?> </span>
-            <span class="category-create-span"> Price - <?= $good->price ?> </span>
-            <span class="category-create-span"> Category - <?= $good->categoryID ?> </span>
-            <span class="category-create-span"> createTime - <?= $good->createTime ?> </span>
-            <span class="category-create-span"> updateTime - <?= $good->updateTime ?> </span>
+<!--            <span class="category-create-span"> Name - --><?php //= $good['name'] ?><!-- </span>-->
+<!--            <span class="category-create-span"> Description - --><?php //= $good['description'] ?><!-- </span>-->
+<!--            <span class="category-create-span"> Price - --><?php //= $good['price'] ?><!-- </span>-->
+<!--            <span class="category-create-span"> Category - --><?php //= $good['categoryName'] ?><!-- </span>-->
+<!--            <span class="category-create-span"> createTime - --><?php //= $good['createTime'] ?><!-- </span>-->
+<!--            <span class="category-create-span"> updateTime - --><?php //= $good['updateTime'] ?><!-- </span>-->
         </div>
     <?php }?>
 </div>

@@ -6,6 +6,7 @@ use app\models\GoodActiveRecord;
 use app\models\GoodForm;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\db\Query;
 
 class GoodController extends UserController {
 
@@ -23,9 +24,19 @@ class GoodController extends UserController {
 
     public function actionReadall() {
         $this->actionAppropUser(1);
-        $allGoods = $this->goodModel->find()->all();
 
-        return $this->render('readall', ['allGoods' => $allGoods]);
+        $query = new Query();
+        $allGoodsWithCategories = $query
+            ->selectColumn(['goodscatalog.id', 'categories.name AS category'])
+            ->from('goodscatalog')
+            ->innerJoin('categories', 'goodscatalog.categoryID = categories.id')
+            ->all();
+
+        var_dump($allGoodsWithCategories);
+        die();
+//        $allGoods = $this->goodModel->find()->join('INNER JOIN', 'categories', 'categories.id = goodscatalog.categoryID')->all();
+
+        return $this->render('readall', ['allGoods' => $allGoodsWithCategories]);
     }
 
     public function actionCreate() {
