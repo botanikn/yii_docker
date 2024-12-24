@@ -70,7 +70,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             }
             $menuItems[] = [
                     'label' => 'My Cart (' . $totalItems . ')',
-                    'url' => ['/cart/readown']
+                    'url' => ['/cart/index']
             ];
         }
     }
