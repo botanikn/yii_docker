@@ -4,17 +4,22 @@ namespace app\controllers;
 
 use app\models\CategoryActiveRecord;
 use app\models\CategoryForm;
+use app\services\CategoryService;
 use Yii;
 
 class CategoryController extends UserController {
 
     protected $categoryModel;
+    protected $categoryForm;
+    protected $categoryService;
 
     public function init()
     {
         parent::init();
         // Создаем экземпляр CategoryActiveRecord и помещаем его в свойство
         $this->categoryModel = new CategoryActiveRecord();
+        $this->categoryForm = new CategoryForm();
+        $this->categoryService = new CategoryService();
     }
 
     public function actionReadall() {
@@ -29,15 +34,12 @@ class CategoryController extends UserController {
 
         $this->actionAppropUser(1);
 
-        $model = new CategoryForm();
+        $model = $this->categoryForm;
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
-            $this->categoryModel->name = $model->name;
-            $this->categoryModel->description = $model->description;
-            $this->categoryModel->createTime = date('Y-m-d H:i:s', time());
-            $this->categoryModel->updateTime = date('Y-m-d H:i:s', time());
+            $category = $this->categoryService->createCategory($model, $this->categoryModel);
 
-            if($this->categoryModel->save()) {
+            if($category) {
                 $this->redirect(['category/readall']);
             }
         }
