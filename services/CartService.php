@@ -5,6 +5,8 @@ use Yii;
 
 class CartService {
 
+    /// Функция ниже нуждается в рефакторинге
+
     public function addItemInCart($query, $cartForm) {
         $found = false;
 
@@ -30,6 +32,12 @@ class CartService {
         }
     }
 
+    public function increaseItemInCart($query, $cartForm) {
+
+
+
+    }
+
     public function findClientCart($query) {
         $result = $query::find()
             ->where([
@@ -43,10 +51,11 @@ class CartService {
     public function findGoodsInCart($query) {
 
         $allGoodsInCart = $query
-            ->select(['goodscatalog.*', 'cartitems.quantity as quantity'])
+            ->select(['goodscatalog.*', 'cartitems.quantity as quantity', 'cartitems.id as cart_id'])
             ->from('cartitems')
             ->innerJoin('goodscatalog', 'goodscatalog.id = "goodID"')
             ->where('"userID" = ' . Yii::$app->user->getId())
+            ->orderBy(['name' => SORT_ASC])
             ->all();
 
         return $allGoodsInCart;

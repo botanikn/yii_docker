@@ -1,6 +1,6 @@
 .form {
-    display: flex;
-    flex-direction: column;
+    /*display: flex;*/
+    /*flex-direction: column;*/
     color: white;
     background-color: #313131;
     margin: 10px;
@@ -13,5 +13,4 @@
     background-color: white;
     color: black;
     padding: 5px;
-    margin-top: 10px;
 }

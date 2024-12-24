@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 $this->params['breadcrumbs'][] = 'My Cart';
 
@@ -13,7 +14,22 @@ $this->params['breadcrumbs'][] = 'My Cart';
         <div class="category-one">
             <span class="category-create-span"> Name - <?= $item['name'] ?> </span>
             <span class="category-create-span"> Description - <?= $item['description'] ?> </span>
-            <span class="category-create-span"> Quantity - <?= $item['quantity'] ?> </span>
+
+            <div class="increment-decrement">
+                <?= Html::a(
+                        '<span class="change-buttons">-</span>',
+                        Url::to(['cart/decrement', 'id' => $item['cart_id']]),
+                        ['class' => 'change-buttons']
+                    )
+                ?>
+                <span class="category-create-span"><?= $item['quantity'] ?> </span>
+                <?= Html::a(
+                    '<span class="change-buttons">+</span>',
+                    Url::to(['cart/increment', 'id' => $item['cart_id']]),
+                    ['class' => 'change-buttons']
+                )
+                ?>
+            </div>
         </div>
         <?php $isEmpty = true ?>
     <?php }?>

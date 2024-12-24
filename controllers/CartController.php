@@ -31,4 +31,20 @@ class CartController extends UserController {
         return $this->render('index', ['cart' => $allGoodsInCart]);
     }
 
+    public function actionIncrement($id) {
+        $item = $this->cartModel::findOne($id);
+        $item->quantity += 1;
+        $item->updateTime = date('Y-m-d H:i:s', time());
+        if ($item->save()) {
+            $this->redirect(['cart/index']);
+        }
+    }
+    public function actionDecrement($id) {
+        $item = $this->cartModel::findOne($id);
+        $item->quantity -= 1;
+        $item->updateTime = date('Y-m-d H:i:s', time());
+        if ($item->save()) {
+            $this->redirect(['cart/index']);
+        };
+    }
 }
