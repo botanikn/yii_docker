@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = 'Catalog';
 
 <div class="readll-grid">
     <?php foreach ($allGoods as $good) { ?>
-        <div class="category-one">
+        <div>
             <?php $form = ActiveForm::begin(['options' => [
                 'class' => 'form'
             ]])?>
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = 'Catalog';
 
             <?= Html::hiddenInput('id', $good['id']) ?>
 
-            <?= Html::submitButton('Add to cart', ['class' => 'btn btn-primary']) ?>
+            <?= Yii::$app->user->identity->roleID == 2 ? Html::submitButton('Add to cart', ['class' => 'btn btn-primary']) : ''?>
             <?php ActiveForm::end()?>
 
         </div>
