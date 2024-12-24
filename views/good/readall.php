@@ -30,6 +30,11 @@ $this->params['breadcrumbs'][] = 'Catalog';
                     Url::to(['good/readone', 'id' => $good['id']])
                 )
             ?>
+            <?= Html::a(
+                '<span class="change-buttons">Удалить</span>',
+                Url::to(['good/deleteone', 'id' => $good['id']])
+            )
+            ?>
 
             <?= Html::hiddenInput('id', $good['id']) ?>
 

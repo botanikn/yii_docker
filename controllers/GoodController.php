@@ -79,6 +79,20 @@ class GoodController extends UserController {
         return $this->render('readone', ['good' => $this->goodForm, 'items' => $items]);
     }
 
+    public function actionDeleteone($id) {
+
+        $currentGood = $this->goodModel::findOne($id);
+        try {
+            if ($currentGood->delete()) {
+                $this->redirect(['good/readall']);
+                Yii::$app->session->setFlash('success', 'Запись успешно удалена.');
+            }
+        } catch (\yii\db\IntegrityException $e) {
+            $this->redirect(['good/readall']);
+            Yii::$app->session->setFlash('error', 'Ошибка: Невозможно удалить товар, так как он уже имеется в корзине пользователя.');
+        }
+    }
+
     public function actionCreate() {
         $this->actionAppropUser(1);
         $model = $this->goodForm;
