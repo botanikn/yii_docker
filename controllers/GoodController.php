@@ -5,6 +5,7 @@ use app\models\CartActiveRecord;
 use app\models\CategoryActiveRecord;
 use app\models\GoodActiveRecord;
 use app\models\GoodForm;
+use app\services\GoodService;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\db\Query;
@@ -15,6 +16,8 @@ class GoodController extends UserController {
     protected $goodForm;
     protected $categoryModel;
     protected $cartModel;
+    protected $query;
+    protected $goodService;
 
     public function init()
     {
@@ -23,16 +26,15 @@ class GoodController extends UserController {
         $this->goodForm = new GoodForm();
         $this->categoryModel = new CategoryActiveRecord();
         $this->cartModel = new CartActiveRecord();
+        $this->query = new Query();
+
+        $this->goodService = new GoodService();
     }
 
     public function actionReadall() {
 
-        $query = new Query();
-        $allGoodsWithCategories = $query
-            ->select(['goodscatalog.*', 'categories.name AS category'])
-            ->from('goodscatalog')
-            ->innerJoin('categories', '"categoryID" = categories.id')
-            ->all();
+        // Вызов сервиса по поиску всех категорий товаров
+        $allGoodsWithCategories = $this->goodService->getCategories($this->query);
 
         if (Yii::$app->request->isPost) {
             // Все товары в корзине текущего пользователя
@@ -76,14 +78,11 @@ class GoodController extends UserController {
 
         // Если в модель были загружены и провалидированы данные, они вносятся в activeRecord, затем сохраняются
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $this->goodModel->name = $model->name;
-            $this->goodModel->description = $model->description;
-            $this->goodModel->price = $model->price;
-            $this->goodModel->categoryID = $model->categoryID;
-            $this->goodModel->createTime = date('Y-m-d H:i:s', time());
-            $this->goodModel->updateTime = date('Y-m-d H:i:s', time());
 
-            if($this->goodModel->save()) {
+            // Вызов сервиса, который создаёт новый товар
+            $good = $this->goodService->createGoods($model, $this->goodModel);
+
+            if($good->save()) {
                 $this->redirect(['good/readall']);
             }
         }
