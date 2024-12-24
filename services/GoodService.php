@@ -15,6 +15,33 @@ class GoodService
         return $allGoodsWithCategories;
     }
 
+    public function getOneGood($query, $id) {
+        $good = $query
+            ->select(['goodscatalog.*', 'categories.name AS category'])
+            ->from('goodscatalog')
+            ->innerJoin('categories', '"categoryID" = categories.id')
+            ->where(['goodscatalog.id' => $id])
+            ->one();
+
+        return $good;
+    }
+
+    public function updateOneGood($activeForm, $model, $id) {
+
+        $currentGood = $activeForm::findOne($id);
+
+        $currentGood->name = $model->name;
+        $currentGood->description = $model->description;
+        $currentGood->price = $model->price;
+        $currentGood->categoryID = $model->categoryID;
+        $currentGood->updateTime = date('Y-m-d H:i:s', time());
+
+        if($currentGood->save()) {
+            return $currentGood;
+        }
+        else return null;
+    }
+
     public function createGoods($model, $activeForm) {
 
         $activeForm->name = $model->name;

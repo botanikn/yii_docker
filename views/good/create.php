@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->params['breadcrumbs'][] = ['label' => 'Goods in catalog', 'url' => ['/good/readall']];
+$this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['/good/readall']];
 $this->params['breadcrumbs'][] = 'New Good';
 
 ?>

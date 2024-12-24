@@ -39,17 +39,44 @@ class GoodController extends UserController {
         // Вызов сервиса по поиску всех категорий товаров
         $allGoodsWithCategories = $this->goodService->getCategories($this->query);
 
-        if (Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost && Yii::$app->user->identity->roleID == 2) {
 
             // Все товары в корзине текущего пользователя
             $query = $this->cartService->findClientCart($this->cartModel);
 
 
+            // Добавление товара в корзину
             $this->cartService->addItemInCart($query, $this->cartModel);
 
         }
 
         return $this->render('readall', ['allGoods' => $allGoodsWithCategories]);
+    }
+
+    public function actionReadone($id) {
+        $this->actionAppropUser(1);
+
+        // Нахожу необходимый товар
+        $good = $this->goodService->getOneGood($this->query, $id);
+
+        // Перевожу данные из запроса в форму
+        $this->goodForm->attributes = $good;
+
+        // Нахожу все категории
+        $categories = $this->categoryModel->find()->all();
+        $items = ArrayHelper::map($categories, 'id', 'name');
+
+        // Если форма заполнена и провалидирована
+        if ($this->goodForm->load(Yii::$app->request->post()) && $this->goodForm->validate()) {
+
+            // Вызываем метод обновдения и передаём ему все параметры из формы
+            $updatedGood = $this->goodService->updateOneGood($this->goodModel, $this->goodForm, $id);
+            if ($updatedGood) {
+                $this->redirect(['good/readall']);
+            }
+        }
+
+        return $this->render('readone', ['good' => $this->goodForm, 'items' => $items]);
     }
 
     public function actionCreate() {

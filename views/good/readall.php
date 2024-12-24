@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 $this->params['breadcrumbs'][] = 'Catalog';
 
@@ -24,6 +25,11 @@ $this->params['breadcrumbs'][] = 'Catalog';
             <span class="category-create-span"> Category - <?= $good['category'] ?> </span>
             <span class="category-create-span"><?= Yii::$app->user->identity->roleID == 1 ?  'createTime - ' . $good['createTime'] : '' ?> </span>
             <span class="category-create-span"><?= Yii::$app->user->identity->roleID == 1 ?  'updateTime - ' . $good['updateTime'] : '' ?> </span>
+            <?= Html::a(
+                    '<span class="change-buttons">Изменить</span>',
+                    Url::to(['good/readone', 'id' => $good['id']])
+                )
+            ?>
 
             <?= Html::hiddenInput('id', $good['id']) ?>
 
