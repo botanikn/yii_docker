@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\models\CartActiveRecord;
 use app\models\CategoryActiveRecord;
 use app\models\GoodActiveRecord;
 use app\models\GoodForm;
@@ -13,6 +14,7 @@ class GoodController extends UserController {
     protected $goodModel;
     protected $goodForm;
     protected $categoryModel;
+    protected $cartModel;
 
     public function init()
     {
@@ -20,10 +22,10 @@ class GoodController extends UserController {
         $this->goodModel = new GoodActiveRecord();
         $this->goodForm = new GoodForm();
         $this->categoryModel = new CategoryActiveRecord();
+        $this->cartModel = new CartActiveRecord();
     }
 
     public function actionReadall() {
-//        $this->actionAppropUser(1);
 
         $query = new Query();
         $allGoodsWithCategories = $query
@@ -33,11 +35,37 @@ class GoodController extends UserController {
             ->all();
 
         if (Yii::$app->request->isPost) {
-            var_dump(Yii::$app->request->post('id'));
-            die();
-        }
+            // Все товары в корзине текущего пользователя
+            $query = $this->cartModel::find()
+                ->where([
+                    'userID' => Yii::$app->user->id
+                ])
+                ->all();
 
-//        $allGoods = $this->goodModel->find()->join('INNER JOIN', 'categories', 'categories.id = goodscatalog.categoryID')->all();
+            $found = false;
+
+            // Если id полученного товара уже имеется в корзине, добавляем к нему ещё один
+            foreach ($query as $item) {
+                if ($item->goodID == Yii::$app->request->post('id')) {
+                    $item->quantity += 1;
+                    $item->updateTime = date('Y-m-d H:i:s', time());
+                    $item->save();
+                    $found = true;
+                    break;
+                }
+            }
+
+            // Если id товара не найден, то создаём новый
+            if (!$found) {
+                $this->cartModel->goodID = Yii::$app->request->post('id');
+                $this->cartModel->userID = Yii::$app->user->id;
+                $this->cartModel->quantity = 1;
+                $this->cartModel->createTime = date('Y-m-d H:i:s', time());
+                $this->cartModel->updateTime = date('Y-m-d H:i:s', time());
+                $this->cartModel->save();
+            }
+
+        }
 
         return $this->render('readall', ['allGoods' => $allGoodsWithCategories]);
     }

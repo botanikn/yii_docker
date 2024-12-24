@@ -9,6 +9,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use \app\models\CartActiveRecord;
 
 AppAsset::register($this);
 
@@ -49,10 +50,28 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 'onclick' => '$("#logout-form").submit(); return false;',
             ],
         ];
+        $menuItems[] = ['label' => 'Catalog', 'url' => ['/good/readall']];
+
+        // Вывод для администраторов
         if (\Yii::$app->user->identity->roleID == 1) {
             $menuItems[] = ['label' => 'Categories', 'url' => ['/category/readall']];
-            $menuItems[] = ['label' => 'Catalog', 'url' => ['/good/readall']];
             $menuItems[] = ['label' => 'Orders', 'url' => ['/order/readall']];
+        }
+
+        // Вывод для клиентов
+        else if (\Yii::$app->user->identity->roleID == 2) {
+            $cart = new CartActiveRecord();
+            $query = $cart::find()
+                ->where(['userID' => Yii::$app->user->id])
+                ->all();
+            $totalItems = 0;
+            foreach ($query as $item) {
+                $totalItems += $item->quantity;
+            }
+            $menuItems[] = [
+                    'label' => 'My Cart (' . $totalItems . ')',
+                    'url' => ['/cart/readown']
+            ];
         }
     }
 
