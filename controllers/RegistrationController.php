@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use app\services\UserService;
 use \yii\web\Controller;
 use Yii;
 use app\models\RegistrationForm;
@@ -8,6 +9,18 @@ use app\models\User;
 
 class RegistrationController extends Controller
 {
+
+    protected $userService;
+    protected $user;
+    protected $registrationForm;
+
+    public function init()
+    {
+        parent::init();
+        $this->userService = new UserService();
+        $this->user = new User();
+        $this->registrationForm = new RegistrationForm();
+    }
 
     public function actionIndex() {
         if (!Yii::$app->user->isGuest) {
@@ -18,21 +31,13 @@ class RegistrationController extends Controller
                 return $this->redirect('?r=client/index');
             }
         }
-        $model = new RegistrationForm();
+        $model = $this->registrationForm;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $user = new User();
-            $user->login = $model->login;
-            $user->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
-            $user->firstName = $model->firstName;
-            $user->lastName = $model->lastName;
-            $user->email = $model->email;
-            $user->phone = $model->phone;
-            $user->roleID = 2;
-            $user->createTime = date('Y-m-d H:i:s', time());
-            $user->updateTime = date('Y-m-d H:i:s', time());
 
-            if ($user->save()) {
+            $user = $this->userService->registerUser($model, $this->user);
+
+            if ($user) {
                 Yii::$app->user->login($user, 3600 * 24 * 30);
                 return $this->goHome();
             }
