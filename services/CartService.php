@@ -6,8 +6,6 @@ use yii\db\Query;
 
 class CartService {
 
-    /// Функция ниже нуждается в рефакторинге
-
     public function addItemInCart($id, $cartModel) {
 
         $cartModel->goodID = $id;
@@ -43,6 +41,14 @@ class CartService {
 
         return $allGoodsInCart;
 
+    }
+
+    public function removeItemsInCart($cartModel) {
+        $cartModel::find()
+        ->where(['userID' => Yii::$app->user->id])
+        -all();
+
+        $cartModel->delete();
     }
 
 }
