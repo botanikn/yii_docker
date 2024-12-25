@@ -1,0 +1,28 @@
+.increment-decrement {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.div {
+    margin: 10px;
+}
+
+.total {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+}
+
+.make-order {
+    text-decoration: none;
+    color: black;
+    background-color: #46ff25;
+    padding: 10px;
+    font-size: 20px;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}

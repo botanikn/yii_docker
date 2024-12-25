@@ -9,11 +9,18 @@ $this->params['breadcrumbs'][] = 'My Cart';
 ?>
 
 <div class="readll-grid">
-    <?php $isEmpty = false ?>
+    <?php
+        $isEmpty = false;
+        $total = 0;
+    ?>
     <?php foreach ($cart as $item) {?>
         <div class="category-one">
+            <?php
+                $total += $item['price']*$item['quantity'];
+            ?>
             <span class="category-create-span"> Name - <?= $item['name'] ?> </span>
             <span class="category-create-span"> Description - <?= $item['description'] ?> </span>
+            <span class="category-create-span"> Price - <?= $item['price'] ?>$ </span><br>
 
             <div class="increment-decrement">
                 <?= Html::a(
@@ -22,7 +29,7 @@ $this->params['breadcrumbs'][] = 'My Cart';
                         ['class' => 'change-buttons']
                     )
                 ?>
-                <span class="category-create-span"><?= $item['quantity'] ?> </span>
+                <div class="div"><?= $item['quantity'] ?> </div>
                 <?= Html::a(
                     '<span class="change-buttons">+</span>',
                     Url::to(['cart/increment', 'id' => $item['cart_id'], 'path' => 'cart/index']),
@@ -34,9 +41,16 @@ $this->params['breadcrumbs'][] = 'My Cart';
         <?php $isEmpty = true ?>
     <?php }?>
     <?php if (!$isEmpty) { ?>
-
         <h1>Ваша корзина пуста</h1>
         <?= Html::a('Выберите себе что-нибудь', ['good/readall'], ['class' => ['cl-index-a']])?>
-
     <?php }?>
+</div>
+<div class="total">
+    Всего - <?= $total?>$
+    <?= Html::a(
+        '<span>Оформить заказ</span>',
+        Url::to(['cart/increment', 'id' => $item['cart_id'], 'path' => 'cart/index']),
+        ['class' => 'make-order']
+    )
+    ?>
 </div>

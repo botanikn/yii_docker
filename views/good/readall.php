@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = 'Catalog';
                         ['class' => 'change-buttons']
                     )
                     ?>
-                    <span class="category-create-span"><?= $cart['quantity'] ?> </span>
+                    <div class="div"><?= $cart['quantity'] ?> </div>
                     <?= Html::a(
                         '<span class="change-buttons">+</span>',
                         Url::to(['cart/increment', 'id' => $cart['id'], 'path' => 'good/readall']),
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = 'Catalog';
             <?php } else {?>
                 <?= Html::a(
                     '<span class="change-buttons">Добавить в корзину</span>',
-                    Url::to(['cart/add', 'id' => $good['id']]),
+                    Url::to(['cart/add', 'id' => $good['id'], 'path' => 'good/readall']),
                     ['class' => 'change-buttons']
                 )
                 ?>

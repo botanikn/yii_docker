@@ -8,29 +8,15 @@ class CartService {
 
     /// Функция ниже нуждается в рефакторинге
 
-    public function addItemInCart($query, $cartForm) {
-//        $found = false;
-//
-//        // Если id полученного товара уже имеется в корзине, добавляем к нему ещё один
-//        foreach ($query as $item) {
-//            if ($item->goodID == Yii::$app->request->post('id')) {
-//                $item->quantity += 1;
-//                $item->updateTime = date('Y-m-d H:i:s', time());
-//                $item->save();
-//                $found = true;
-//                break;
-//            }
-//        }
+    public function addItemInCart($id, $cartModel) {
 
-        // Если id товара не найден, то создаём новый
-//        if (!$found) {
-            $cartForm->goodID = Yii::$app->request->post('id');
-            $cartForm->userID = Yii::$app->user->id;
-            $cartForm->quantity = 1;
-            $cartForm->createTime = date('Y-m-d H:i:s', time());
-            $cartForm->updateTime = date('Y-m-d H:i:s', time());
-            $cartForm->save();
-//        }
+        $cartModel->goodID = $id;
+        $cartModel->userID = Yii::$app->user->id;
+        $cartModel->quantity = 1;
+        $cartModel->createTime = date('Y-m-d H:i:s', time());
+        $cartModel->updateTime = date('Y-m-d H:i:s', time());
+        $cartModel->save();
+
     }
 
     public function findClientCart($query) {
