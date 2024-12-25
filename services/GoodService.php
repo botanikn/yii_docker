@@ -4,12 +4,13 @@ namespace app\services;
 
 class GoodService
 {
-    public function getCategories($query) {
+    public function getGoodsJoinCatJoinCart($query) {
 
         $allGoodsWithCategories = $query
             ->select(['goodscatalog.*', 'categories.name AS category'])
             ->from('goodscatalog')
             ->innerJoin('categories', '"categoryID" = categories.id')
+            ->orderBy(['id' => SORT_ASC])
             ->all();
 
         return $allGoodsWithCategories;

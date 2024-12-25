@@ -18,14 +18,14 @@ $this->params['breadcrumbs'][] = 'My Cart';
             <div class="increment-decrement">
                 <?= Html::a(
                         '<span class="change-buttons">-</span>',
-                        Url::to(['cart/decrement', 'id' => $item['cart_id']]),
+                        Url::to(['cart/decrement', 'id' => $item['cart_id'], 'path' => 'cart/index']),
                         ['class' => 'change-buttons']
                     )
                 ?>
                 <span class="category-create-span"><?= $item['quantity'] ?> </span>
                 <?= Html::a(
                     '<span class="change-buttons">+</span>',
-                    Url::to(['cart/increment', 'id' => $item['cart_id']]),
+                    Url::to(['cart/increment', 'id' => $item['cart_id'], 'path' => 'cart/index']),
                     ['class' => 'change-buttons']
                 )
                 ?>

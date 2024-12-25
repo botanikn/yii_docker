@@ -37,20 +37,28 @@ class GoodController extends UserController {
     public function actionReadall() {
 
         // Вызов сервиса по поиску всех категорий товаров
-        $allGoodsWithCategories = $this->goodService->getCategories($this->query);
+        $allGoodsWithCategories = $this->goodService->getGoodsJoinCatJoinCart($this->query);
 
-        if (Yii::$app->request->isPost && Yii::$app->user->identity->roleID == 2) {
+        $allItemsInCarts = $this->cartModel::find()->orderBy(['goodID' => SORT_ASC])->all();
 
-            // Все товары в корзине текущего пользователя
-            $query = $this->cartService->findClientCart($this->cartModel);
+//        $allGoodsInCart = $this->cartService->findGoodsInCart($this->query);
+//        $isEmpty = false;
+//        if (empty($allGoodsInCart)) {
+//            $isEmpty = true;
+//        }
 
+//        if (Yii::$app->request->isPost && Yii::$app->user->identity->roleID == 2) {
+//
+//            // Все товары в корзине текущего пользователя
+//            $query = $this->cartService->findClientCart($this->cartModel);
+//
+//
+//            // Добавление товара в корзину
+//            $this->cartService->addItemInCart($query, $this->cartModel);
+//
+//        }
 
-            // Добавление товара в корзину
-            $this->cartService->addItemInCart($query, $this->cartModel);
-
-        }
-
-        return $this->render('readall', ['allGoods' => $allGoodsWithCategories]);
+        return $this->render('readall', ['allGoods' => $allGoodsWithCategories, 'allItemsInCarts' => $allItemsInCarts]);
     }
 
     public function actionReadone($id) {
