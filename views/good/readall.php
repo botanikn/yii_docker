@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = 'Catalog';
                     <?php if ($good['id'] == $item['goodID'] && $item['userID'] == Yii::$app->user->getId()) { $found = true; $cart = $item; } ?>
 
             <?php endforeach;?>
-            <?php if ($found === true) {?>
+            <?php if ($found === true && Yii::$app->user->identity->roleID == 2) {?>
                 <div class="increment-decrement">
                     <?= Html::a(
                         '<span class="change-buttons">-</span>',
@@ -69,11 +69,11 @@ $this->params['breadcrumbs'][] = 'Catalog';
                     ?>
                 </div>
             <?php } else {?>
-                <?= Html::a(
+                <?= Yii::$app->user->identity->roleID == 2 ? Html::a(
                     '<span class="change-buttons">Добавить в корзину</span>',
                     Url::to(['cart/add', 'id' => $good['id'], 'path' => 'good/readall']),
                     ['class' => 'change-buttons']
-                )
+                ) : ''
                 ?>
             <?php }?>
         </div>

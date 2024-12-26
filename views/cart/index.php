@@ -52,10 +52,12 @@ $this->params['breadcrumbs'][] = 'My Cart';
 <div class="total">
     Всего - <?= $total?>$
 
-    <?=
-    Html::a(
-        '<span>Оформить заказ</span>',
-        ['order/create', 'goodIDs' => mb_substr($arr, 1), 'quantities' => mb_substr($quantity, 1)],
-        ['class' => 'make-order'])
-    ?>
+    <?php if ($isEmpty) {?>
+        <?=
+        Html::a(
+            '<span>Оформить заказ</span>',
+            ['order/create', 'goodIDs' => mb_substr($arr, 1), 'quantities' => mb_substr($quantity, 1), 't_price' => $total],
+            ['class' => 'make-order'])
+        ?>
+    <?php }?>
 </div>

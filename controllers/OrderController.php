@@ -8,6 +8,7 @@ use app\models\OrderActiveRecord;
 use app\services\CartService;
 use app\services\OrderService;
 use Yii;
+use yii\db\Query;
 
 class OrderController extends UserController {
 
@@ -16,6 +17,7 @@ class OrderController extends UserController {
     protected $cartService;
     protected $goodInOrderModel;
     protected $orderService;
+    protected $query;
 
     public function init()
     {
@@ -26,16 +28,17 @@ class OrderController extends UserController {
         $this->cartService = new CartService();
         $this->goodInOrderModel = new GoodInOrderActiveRecord();
         $this->orderService = new OrderService();
+        $this->query = new Query();
     }
 
-    public function actionCreate($goodIDs, $quantities) {
+    public function actionCreate($goodIDs, $quantities, $t_price) {
 
         // Создание рандомного названия для заказа
         $characters = '0123456789';
-        $random = $this->orderService->createRandom($characters);
+        $order_random = $this->orderService->createRandom($characters);
 
         // Создание заказа
-        $newOrder = $this->orderService->createOrder($random, $this->orderModel);
+        $newOrder = $this->orderService->createOrder($order_random, $this->orderModel, $t_price);
 
         // Превращаем строку с id товаров в массив
         $IDs = explode(',', $goodIDs);
@@ -53,17 +56,23 @@ class OrderController extends UserController {
 
             $this->cartService->removeItemsInCart($this->cartModel);
             $this->redirect(['order/readfew']);
-            Yii::$app->session->setFlash('success', 'Заказ с номером ' . $random . ' создан');
+            Yii::$app->session->setFlash('success', 'Заказ с номером ' . $order_random . ' создан');
         }
 
     }
 
     public function actionReadfew() {
+        $this->actionAppropUser(2);
         $orders = $this->orderModel::find()
             ->where(['customerID' => Yii::$app->user->identity->id])
             ->all();
 
-        $this->render('readfew', ['orders' => $orders]);
+        return $this->render('readfew', ['orders' => $orders]);
+    }
+
+    public function actionReadone($id, $name) {
+        $gio = $this->orderService->getGoodsInOrder($id, $this->query);
+        return $this->render('readone', ['gio' => $gio, 'name' => $name]);
     }
 
 }

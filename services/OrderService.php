@@ -6,6 +6,15 @@ use Yii;
 
 class OrderService {
 
+    protected $giom;
+
+    public function init()
+    {
+
+        $this->giom = new GoodInOrderActiveRecord();
+
+    }
+
     public function createRandom($characters) {
         $random = '';
         for ($i = 0; $i < 10; $i++) {
@@ -15,10 +24,11 @@ class OrderService {
         return $random;
     }
 
-    public function createOrder($random, $newOrder) {
+    public function createOrder($order_random, $newOrder, $t_price) {
 
-        $newOrder->name = $random;
+        $newOrder->name = $order_random;
         $newOrder->customerID = Yii::$app->user->identity->id;
+        $newOrder->t_price = $t_price;
         $newOrder->createTime = date('Y-m-d H:i:s', time());
         $newOrder->updateTime = date('Y-m-d H:i:s', time());
 
@@ -38,6 +48,19 @@ class OrderService {
         $giom->updateTime = date('Y-m-d H:i:s', time());
 
         $giom->save();
+    }
+
+    public function getGoodsInOrder($id, $query) {
+
+        $result = $query
+        ->select(['goodscatalog.name AS good_name', 'goodscatalog.description', 'goodscatalog.price', 'goodsinorders.*'])
+            ->from('goodsinorders')
+            ->innerJoin('goodscatalog', 'goodsinorders."goodID" = goodscatalog."id"')
+            ->where(['"orderID"' => $id])
+            ->all();
+
+        return $result;
+
     }
 
 }

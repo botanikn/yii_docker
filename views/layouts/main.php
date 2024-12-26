@@ -72,6 +72,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     'label' => 'My Cart (' . $totalItems . ')',
                     'url' => ['/cart/index']
             ];
+            $menuItems[] = [
+                'label' => 'My Orders',
+                'url' => ['/order/readfew']
+            ];
         }
     }
 
@@ -99,7 +103,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <footer id="footer" class="mt-auto py-3 bg-light">
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
+            <div class="col-md-6 text-center text-md-start">&copy; Pet LLC <?= date('Y') ?></div>
             <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
         </div>
     </div>
