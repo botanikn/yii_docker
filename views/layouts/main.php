@@ -55,7 +55,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         // Вывод для администраторов
         if (\Yii::$app->user->identity->roleID == 1) {
             $menuItems[] = ['label' => 'Categories', 'url' => ['/category/readall']];
-            $menuItems[] = ['label' => 'Orders', 'url' => ['/order/readall']];
+            $menuItems[] = ['label' => 'Orders', 'url' => ['/order/readfew']];
         }
 
         // Вывод для клиентов

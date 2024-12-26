@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\CartActiveRecord;
 use app\models\GoodInOrderActiveRecord;
 use app\models\OrderActiveRecord;
+use app\models\OrderForm;
 use app\services\CartService;
 use app\services\OrderService;
 use Yii;
@@ -18,6 +19,7 @@ class OrderController extends UserController {
     protected $goodInOrderModel;
     protected $orderService;
     protected $query;
+    protected $orderForm;
 
     public function init()
     {
@@ -29,6 +31,7 @@ class OrderController extends UserController {
         $this->goodInOrderModel = new GoodInOrderActiveRecord();
         $this->orderService = new OrderService();
         $this->query = new Query();
+        $this->orderForm = new OrderForm();
     }
 
     public function actionCreate($goodIDs, $quantities, $t_price) {
@@ -62,10 +65,15 @@ class OrderController extends UserController {
     }
 
     public function actionReadfew() {
-        $this->actionAppropUser(2);
-        $orders = $this->orderModel::find()
-            ->where(['customerID' => Yii::$app->user->identity->id])
-            ->all();
+
+        if (Yii::$app->user->identity->roleID == 1) {
+            $orders = $this->orderModel::find()
+                ->all();
+        } else {
+            $orders = $this->orderModel::find()
+                ->where(['customerID' => Yii::$app->user->identity->id])
+                ->all();
+        }
 
         return $this->render('readfew', ['orders' => $orders]);
     }
@@ -73,6 +81,30 @@ class OrderController extends UserController {
     public function actionReadone($id, $name) {
         $gio = $this->orderService->getGoodsInOrder($id, $this->query);
         return $this->render('readone', ['gio' => $gio, 'name' => $name]);
+    }
+
+    public function actionSetstatus($id) {
+
+        $order = $this->orderModel::findOne($id);
+        $form = new OrderForm();
+
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+
+            var_dump(Yii::$app->request->post('status'));
+            die();
+
+            $order->status = Yii::$app->request->post('status');
+            $order->updateTime = date('Y-m-d H:i:s', time());
+
+            if ($order->save()) {
+                return $this->redirect(['order/readone', 'id' => $order->id, 'name' => $order->name]);
+                Yii::$app->session->setFlash('success', 'Статус заказа с номером ' . $order->name . ' был изменён на ' . $this->orderForm->status);
+            }
+
+        }
+
+        return $this->render('setstatus', ['name' => $order['name'], 'orderF' => $form]);
+
     }
 
 }

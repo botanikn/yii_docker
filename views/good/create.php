@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = 'New Good';
     <?= $form ->field($model, 'name') ?>
     <?= $form ->field($model, 'description') ?>
     <?= $form ->field($model, 'price') ?>
-    <?= $form->field($model, 'categoryID')->dropDownList($items, ['prompt' => 'Выберите категорию']) ?>
+    <?= $form ->field($model, 'categoryID')->dropDownList($items, ['prompt' => 'Выберите категорию']) ?>
 
     <?= Html::submitButton('Create', ['class' => 'btn btn-primary']) ?>
 

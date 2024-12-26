@@ -13,10 +13,12 @@ class m241219_120920_orders extends Migration
     public function safeUp()
     {
 
+        $this->execute("CREATE TYPE status AS ENUM('received', 'assembling', 'delivering', 'awaiting in pick-up point')");
+
         $this->createTable('orders', [
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull(),
-            'status' => $this->string(50)->notNull()->defaultValue('received'),
+            'status' => 'status NOT NULL DEFAULT \'received\'',
             't_price' => $this->integer()->notNull(),
             'customerID' => $this->integer()->notNull(),
             'createTime' => $this->dateTime()->notNull(),

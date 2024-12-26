@@ -43,9 +43,7 @@ class m241223_142628_cartitems extends Migration
      */
     public function safeDown()
     {
-        echo "m241223_142628_cartitems cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('cartitems');
     }
 
     /*
