@@ -13,12 +13,14 @@ $this->params['breadcrumbs'][] = 'My Cart';
         $isEmpty = false;
         $total = 0;
         $arr = '';
+        $quantity = '';
     ?>
     <?php foreach ($cart as $item) {?>
         <div class="category-one">
             <?php
                 $total += $item['price']*$item['quantity'];
                 $arr = $arr . ',' . $item['id'];
+                $quantity = $quantity . ',' . $item['quantity'];
             ?>
             <span class="category-create-span"> Name - <?= $item['name'] ?> </span>
             <span class="category-create-span"> Description - <?= $item['description'] ?> </span>
@@ -53,7 +55,7 @@ $this->params['breadcrumbs'][] = 'My Cart';
     <?=
     Html::a(
         '<span>Оформить заказ</span>',
-        ['order/create', 'goodIDs' => mb_substr($arr, 1)],
+        ['order/create', 'goodIDs' => mb_substr($arr, 1), 'quantities' => mb_substr($quantity, 1)],
         ['class' => 'make-order'])
     ?>
 </div>

@@ -44,11 +44,7 @@ class CartService {
     }
 
     public function removeItemsInCart($cartModel) {
-        $cartModel::find()
-        ->where(['userID' => Yii::$app->user->id])
-        -all();
-
-        $cartModel->delete();
+        $cartModel::deleteAll(['userID' => Yii::$app->user->id]);
     }
 
 }

@@ -28,37 +28,30 @@ class OrderController extends UserController {
         $this->orderService = new OrderService();
     }
 
-    public function actionCreate($goodIDs) {
+    public function actionCreate($goodIDs, $quantities) {
 
+        // Создание рандомного названия для заказа
         $characters = '0123456789';
         $random = $this->orderService->createRandom($characters);
 
-        $newOrder = $this->orderModel;
+        // Создание заказа
+        $newOrder = $this->orderService->createOrder($random, $this->orderModel);
 
-        $newOrder->name = $random;
-        $newOrder->customerID = Yii::$app->user->identity->id;
-        $newOrder->createTime = date('Y-m-d H:i:s', time());
-        $newOrder->updateTime = date('Y-m-d H:i:s', time());
-
+        // Превращаем строку с id товаров в массив
         $IDs = explode(',', $goodIDs);
+        $Qs = explode(',', $quantities);
 
-        if($newOrder->save()) {
+        if($newOrder) {
 
-            foreach ($IDs as $goodID) {
+            for ($i = 0; $i < count($IDs); $i++) {
 
                 $characters = '0123456789abcdefghij';
                 $random = $this->orderService->createRandom($characters);
 
-                $this->goodInOrderModel->name = $random;
-                $this->goodInOrderModel->goodID = $goodID;
-                $this->goodInOrderModel->orderID = $newOrder->id;
-                $this->goodInOrderModel->createTime = date('Y-m-d H:i:s', 124235425);
-                $this->goodInOrderModel->updateTime = date('Y-m-d H:i:s', time());
-
-                $this->goodInOrderModel->save();
+                $this->orderService->createGoodsInOrders($random, $IDs[$i], $newOrder, $Qs[$i]);
             }
 
-            $this->cartService->removeItemsInCart();
+            $this->cartService->removeItemsInCart($this->cartModel);
             $this->redirect(['order/readfew']);
             Yii::$app->session->setFlash('success', 'Заказ с номером ' . $random . ' создан');
         }
@@ -68,7 +61,7 @@ class OrderController extends UserController {
     public function actionReadfew() {
         $orders = $this->orderModel::find()
             ->where(['customerID' => Yii::$app->user->identity->id])
-            -all();
+            ->all();
 
         $this->render('readfew', ['orders' => $orders]);
     }
