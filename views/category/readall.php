@@ -18,6 +18,8 @@ $this->params['breadcrumbs'][] = 'Categories';
             <span class="category-create-span"> Description - <?= $category->description ?> </span>
             <span class="category-create-span"> createTime - <?= $category->createTime ?> </span>
             <span class="category-create-span"> updateTime - <?= $category->updateTime ?> </span>
+            <?= Html::a('Update', ['category/readone', 'id' => $category->id], ['class' => ['profile-link', 'change-buttons']]); ?>
+            <?= Html::a('Delete', ['category/deleteone', 'id' => $category->id], ['class' => ['profile-link', 'change-buttons']]); ?>
         </div>
     <?php }?>
 </div>

@@ -48,4 +48,35 @@ class CategoryController extends UserController {
 
     }
 
+    public function actionReadone($id) {
+        $this->actionAppropUser(1);
+        $category = $this->categoryModel->findOne($id);
+
+        $modelCat = $this->categoryForm;
+
+        $modelCat->setAttributes($category->getAttributes());
+
+        if ($modelCat->load(Yii::$app->request->post()) && $modelCat->validate()) {
+
+            $category->name = $modelCat->name;
+            $category->description = $modelCat->description;
+            $category->updateTime = date('Y-m-d H:i:s', time());
+
+            if ($category->save()) {
+                $this->redirect(['category/readall']);
+            }
+
+        }
+
+        return $this->render('readone', ['category' => $category, 'model' => $modelCat]);
+    }
+
+    public function actionDeleteone($id) {
+        $this->actionAppropUser(1);
+        $category = $this->categoryModel->findOne($id);
+        if ($category->delete()) {
+            $this->redirect(['category/readall']);
+        }
+    }
+
 }

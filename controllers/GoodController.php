@@ -77,7 +77,7 @@ class GoodController extends UserController {
         // Если форма заполнена и провалидирована
         if ($this->goodForm->load(Yii::$app->request->post()) && $this->goodForm->validate()) {
 
-            // Вызываем метод обновдения и передаём ему все параметры из формы
+            // Вызываем метод обновления и передаём ему все параметры из формы
             $updatedGood = $this->goodService->updateOneGood($this->goodModel, $this->goodForm, $id);
             if ($updatedGood) {
                 $this->redirect(['good/readall']);
