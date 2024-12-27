@@ -43,7 +43,7 @@ class OrderController extends UserController {
         // Создание заказа
         $newOrder = $this->orderService->createOrder($order_random, $this->orderModel, $t_price);
 
-        // Превращаем строку с id товаров в массив
+        // Превращаем строки с id и количеством товаров в массивы
         $IDs = explode(',', $goodIDs);
         $Qs = explode(',', $quantities);
 
@@ -68,10 +68,12 @@ class OrderController extends UserController {
 
         if (Yii::$app->user->identity->roleID == 1) {
             $orders = $this->orderModel::find()
+                ->orderBy(['id' => SORT_ASC])
                 ->all();
         } else {
             $orders = $this->orderModel::find()
                 ->where(['customerID' => Yii::$app->user->identity->id])
+                ->orderBy(['id' => SORT_ASC])
                 ->all();
         }
 
