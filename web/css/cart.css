@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 
 .div {
@@ -25,4 +26,8 @@
     display: flex;
     justify-content: center;
     border-radius: 20px;
+}
+
+.cart {
+    font-size: 30px;
 }

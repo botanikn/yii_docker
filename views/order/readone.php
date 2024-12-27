@@ -24,10 +24,10 @@ $this->params['breadcrumbs'][] = 'Order ' . $name;
             <span class="category-create-span"> Description - <?= $good['description'] ?> </span>
             <span class="category-create-span"> Quantity - <?= $good['quantity'] ?> </span>
             <?php if (Yii::$app->user->identity->id == 1) {?>
-                <span class="category-create-span"> Create Time - <?= $good['createTime'] ?> </span>
+                <span class="category-create-span"> Created at - <?= $good['createTime'] ?> </span>
             <?php }?>
             <?php if (Yii::$app->user->identity->id == 1) {?>
-                <span class="category-create-span"> Update Time - <?= $good['updateTime'] ?> </span>
+                <span class="category-create-span"> Updated at - <?= $good['updateTime'] ?> </span>
             <?php }?><br>
             <span class="category-create-span"> Price - <?= $good['price'] ?>$ </span><br>
         </div>

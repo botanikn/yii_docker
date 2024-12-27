@@ -22,23 +22,25 @@ $this->params['breadcrumbs'][] = 'Catalog';
             <span class="category-create-span"> Description - <?= $good['description'] ?> </span><br>
             <span class="category-create-span"> Price - <?= $good['price'] ?> $</span><br>
             <span class="category-create-span"> Category - <?= $good['category'] ?> </span><br>
-            <span class="category-create-span"><?= Yii::$app->user->identity->roleID == 1 ?  'createTime - ' . $good['createTime'] : '' ?> </span><br>
-            <span class="category-create-span"><?= Yii::$app->user->identity->roleID == 1 ?  'updateTime - ' . $good['updateTime'] : '' ?> </span><br>
+            <span class="category-create-span"><?= Yii::$app->user->identity->roleID == 1 ?  'Created at - ' . $good['createTime'] : '' ?> </span><br>
+            <span class="category-create-span"><?= Yii::$app->user->identity->roleID == 1 ?  'Updated at - ' . $good['updateTime'] : '' ?> </span><br>
 
-            <?= Yii::$app->user->identity->roleID == 1 ?
-                Html::a(
-                    '<span class="change-buttons">Изменить</span>',
-                    Url::to(['good/readone', 'id' => $good['id']]),
-                    ['class' => 'change-buttons']
+            <div class="increment-decrement">
+                <?= Yii::$app->user->identity->roleID == 1 ?
+                    Html::a(
+                        '<span class="change-buttons">Update</span>',
+                        Url::to(['good/readone', 'id' => $good['id']]),
+                        ['class' => 'change-buttons']
+                    ) : ''
+                ?>
+                <?= Yii::$app->user->identity->roleID == 1 ?
+                    Html::a(
+                    '<span class="change-buttons">Delete</span>',
+                        Url::to(['good/deleteone', 'id' => $good['id']]),
+                        ['class' => 'change-buttons']
                 ) : ''
-            ?><br>
-            <?= Yii::$app->user->identity->roleID == 1 ?
-                Html::a(
-                '<span class="change-buttons">Удалить</span>',
-                    Url::to(['good/deleteone', 'id' => $good['id']]),
-                    ['class' => 'change-buttons']
-            ) : ''
-            ?>
+                ?>
+            </div>
 
             <?php $cart = $good;
             $found = false;
@@ -69,12 +71,14 @@ $this->params['breadcrumbs'][] = 'Catalog';
                     ?>
                 </div>
             <?php } else {?>
+                <center>
                 <?= Yii::$app->user->identity->roleID == 2 ? Html::a(
-                    '<span class="change-buttons">Добавить в корзину</span>',
+                    '<span class="cart">&#129530;</span>',
                     Url::to(['cart/add', 'id' => $good['id'], 'path' => 'good/readall']),
-                    ['class' => 'change-buttons']
+                    ['class' => 'change-buttons bigger']
                 ) : ''
                 ?>
+                </center>
             <?php }?>
         </div>
     <?php endforeach;?>

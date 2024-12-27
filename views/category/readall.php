@@ -16,10 +16,12 @@ $this->params['breadcrumbs'][] = 'Categories';
             <span class="category-create-span"> ID - <?= $category->id ?> </span>
             <span class="category-create-span"> Name - <?= $category->name ?> </span>
             <span class="category-create-span"> Description - <?= $category->description ?> </span>
-            <span class="category-create-span"> createTime - <?= $category->createTime ?> </span>
-            <span class="category-create-span"> updateTime - <?= $category->updateTime ?> </span>
-            <?= Html::a('Update', ['category/readone', 'id' => $category->id], ['class' => ['profile-link', 'change-buttons']]); ?>
-            <?= Html::a('Delete', ['category/deleteone', 'id' => $category->id], ['class' => ['profile-link', 'change-buttons']]); ?>
+            <span class="category-create-span"> Created at - <?= $category->createTime ?> </span>
+            <span class="category-create-span"> Update at - <?= $category->updateTime ?> </span><br>
+            <div class="increment-decrement">
+                <?= Html::a('Update', ['category/readone', 'id' => $category->id], ['class' => ['profile-link', 'change-buttons']]); ?>
+                <?= Html::a('Delete', ['category/deleteone', 'id' => $category->id], ['class' => ['profile-link', 'change-buttons']]); ?>
+            </div>
         </div>
     <?php }?>
 </div>

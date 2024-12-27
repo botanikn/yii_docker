@@ -13,7 +13,11 @@ $data = [
 /** @var $orderF */
 /** @var $status */
 /** @var $name */
-$orderF->status = $status
+$orderF->status = $status;
+
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['/order/readfew']];
+$this->params['breadcrumbs'][] = 'Order ' . $name . ' status';
+
 
 
 ?>
@@ -23,8 +27,7 @@ $orderF->status = $status
 
 <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form ->field($orderF, 'status')->dropDownList($data);
-    ?>
+    <?= $form ->field($orderF, 'status')->dropDownList($data); ?>
 
     <?= Html::submitButton('Set Status', ['class' => 'btn btn-primary']) ?>
 
