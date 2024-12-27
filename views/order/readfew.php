@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = 'Orders';
             <?php if (Yii::$app->user->identity->id == 1) {?>
                 <span class="category-create-span"> Update Time - <?= $order['updateTime'] ?> </span>
             <?php }?><br>
-            <?= Html::a('View goods', ['order/readone', 'id' => $order['id'], 'name' => $order['name']])?>
+            <?= Html::a('View goods', ['order/readone', 'id' => $order['id'], 'name' => $order['name']], ['class' => ['profile-link', 'change-buttons']])?>
 
-            <?= Yii::$app->user->identity->id == 1 ? Html::a('Set status', ['order/setstatus', 'id' => $order['id']]) : ''?>
+            <?= Yii::$app->user->identity->id == 1 ? Html::a('Set status', ['order/setstatus', 'id' => $order['id']], ['class' => ['profile-link', 'change-buttons']]) : ''?>
             <?= Progress::widget([
             'percent' => $percent,
                 'label' => $order['status'],
