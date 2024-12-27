@@ -4,11 +4,17 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $data = [
-    'received',
-    'assembling',
-    'delivering',
-    'awaiting in pick-up point'
-]
+    'received' => 'received',
+    'assembling' => 'assembling',
+    'delivering' => 'delivering',
+    'awaiting in pick-up point' => 'awaiting in pick-up point'
+];
+
+/** @var $orderF */
+/** @var $status */
+/** @var $name */
+$orderF->status = $status
+
 
 ?>
 
@@ -17,7 +23,8 @@ $data = [
 
 <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form ->field($orderF, 'status')->dropDownList($data); ?>
+    <?= $form ->field($orderF, 'status')->dropDownList($data);
+    ?>
 
     <?= Html::submitButton('Set Status', ['class' => 'btn btn-primary']) ?>
 

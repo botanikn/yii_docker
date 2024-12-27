@@ -90,20 +90,17 @@ class OrderController extends UserController {
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
 
-            var_dump(Yii::$app->request->post('status'));
-            die();
-
-            $order->status = Yii::$app->request->post('status');
+            $order->status = Yii::$app->request->post()['OrderForm']['status'];
             $order->updateTime = date('Y-m-d H:i:s', time());
 
             if ($order->save()) {
-                return $this->redirect(['order/readone', 'id' => $order->id, 'name' => $order->name]);
+                return $this->redirect(['order/readfew', 'id' => $order->id, 'name' => $order->name]);
                 Yii::$app->session->setFlash('success', 'Статус заказа с номером ' . $order->name . ' был изменён на ' . $this->orderForm->status);
             }
 
         }
 
-        return $this->render('setstatus', ['name' => $order['name'], 'orderF' => $form]);
+        return $this->render('setstatus', ['name' => $order['name'], 'orderF' => $form, 'status' => $order['status']]);
 
     }
 
