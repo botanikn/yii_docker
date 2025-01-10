@@ -36,18 +36,19 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
-     *
      * @param string $login
-     * @return static|null
+     * @throws
+     * @return string|null
      */
-    public static function findByUsername($login)
+    public static function findByUsername(string $login)
     {
 //        foreach (self::$users as $user) {
 //            if (strcasecmp($user['username'], $username) === 0) {
 //                return new static($user);
 //            }
 //        }
+
+        
 //
 //        return null;
 

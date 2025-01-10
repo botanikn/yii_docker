@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use yii\web\ForbiddenHttpException;
+
 class AdminController extends UserController {
 
     public function actionIndex() {
