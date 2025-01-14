@@ -33,8 +33,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.yandex.ru',
-                'username' => 'your_email@yandex.ru',
-                'password' => 'your_password',
+                'username' => 'horizon_dawn@mail.ru',
+                'password' => '1357924680abc11',
                 'port' => 465,
                 'encryption' => 'ssl',
             ],
