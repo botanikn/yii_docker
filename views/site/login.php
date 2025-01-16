@@ -7,6 +7,7 @@
 
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\helpers\Url;
 
 $this->title = 'Login';
 ?>
@@ -31,6 +32,13 @@ $this->title = 'Login';
             <?= $form->field($model, 'login')->textInput(['autofocus' => true]) ?>
 
             <?= $form->field($model, 'password')->passwordInput() ?>
+
+            <?= Html::a(
+                    'Забыли пароль?',
+                    Url::to(['user/password-reset']),
+                    ['class' => 'change-buttons']
+                )
+            ?>
 
             <?= $form->field($model, 'rememberMe')->checkbox([
                 'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",

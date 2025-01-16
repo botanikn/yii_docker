@@ -5,19 +5,20 @@ namespace app\controllers;
 use yii\web\Controller;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
-use yii\mail\BaseMailer;
+use app\models\User;
+use Yii;
+use yii\helpers\Url;
+use yii\bootstrap5\Html;
 
 class UserController extends Controller {
 
-    private PasswordResetRequestForm $passwordResetRequestForm;
-    private ResetPasswordForm $resetPasswordForm;
+    private $passwordResetRequestForm;
+    private $resetPasswordForm;
 
-    public function __construct(
-        PasswordResetRequestForm $passwordResetRequestForm,
-        ResetPasswordForm $resetPasswordForm
-    ) {
-        $this->passwordResetRequestForm = $passwordResetRequestForm;
-        $this->resetPasswordForm = $resetPasswordForm;
+    public function init() {
+        parent::init();
+        $this->passwordResetRequestForm = new PasswordResetRequestForm();
+        $this->resetPasswordForm = new ResetPasswordForm();
     }
 
     public function actionAppropUser($roleID) {
@@ -29,8 +30,8 @@ class UserController extends Controller {
     public function actionPasswordReset() {
         $requestModel = $this->passwordResetRequestForm;
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $user = User::findOne(['email' => $model->email]);
+        if ($requestModel->load(Yii::$app->request->post()) && $requestModel->validate()) {
+            $user = User::findOne(['email' => $requestModel->email]);
 
             if ($user) {
                 $user->generatePasswordResetToken();
@@ -38,14 +39,13 @@ class UserController extends Controller {
 
                 $resetUrl = Url::to(['user/reset-password', 'token' => $user->password_reset_token], true);
                 Yii::$app->mailer->compose()
-                ->setFrom('german_string@mail.ru')
-                ->setTo($model->email)
+                ->setTo($requestModel->email)
                 ->setSubject('Восстановление пароля')
                 ->setHtmlBody(Html::a('Сбросить пароль', $resetUrl))
                 ->send();
             }
         }
-        return $this->render('requestPasswordReset', ['model' => $model]);
+        return $this->render('requestPasswordReset', ['model' => $requestModel]);
     }
 
     public function actionResetPassword($token) {

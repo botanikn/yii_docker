@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\base\Model;
 
-class PasswordResetRequestModel extends Model {
+class PasswordResetRequestForm extends Model {
     public $email;
 
     public function rules() {

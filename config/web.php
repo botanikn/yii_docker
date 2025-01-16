@@ -27,10 +27,20 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => \yii\symfonymailer\Mailer::class,
-            'viewPath' => '@app/mail',
-            // send all mails to a file by default.
-            'useFileTransport' => true,
+        'class' => 'yii\swiftmailer\Mailer',
+        'useFileTransport' => false, // Установите false для реальной отправки писем
+        'transport' => [
+            'class' => 'Swift_SmtpTransport',
+            'host' => 'smtp.mail.ru', // Адрес SMTP-сервера
+            'username' => 'german_string@mail.ru', // Ваш email
+            'password' => '1594yub28', // Ваш пароль
+            'port' => '465', // Порт SMTP-сервера
+            'encryption' => 'ssl', // Тип шифрования
+        ],
+        'messageConfig' => [
+        'charset' => 'UTF-8',
+        'from' => ['german_string@mail.ru' => 'Имя отправителя'], // Укажите почту и имя отправителя по умолчанию
+        ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
