@@ -21,6 +21,10 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne($id);
     }
 
+    public function generatePasswordResetToken() {
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
     /**
      * {@inheritdoc}
      */

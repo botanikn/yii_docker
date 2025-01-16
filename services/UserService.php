@@ -9,7 +9,6 @@ class UserService {
 
         $user->login = $model->login;
         $user->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
-        $user->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
         $user->load($model);
         $user->firstName = $model->firstName;
         $user->lastName = $model->lastName;
