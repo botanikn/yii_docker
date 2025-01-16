@@ -19,6 +19,7 @@ class m241219_120623_goodscatalog extends Migration
             'description' => $this->text(),
             'price' => $this->integer()->notNull(),
             'categoryID' => $this->integer()->notNull(),
+            'updated_by' => $this->integer(),
             'createTime' => $this->dateTime()->notNull(),
             'updateTime' => $this->dateTime()->notNull(),
         ]);
@@ -30,6 +31,21 @@ class m241219_120623_goodscatalog extends Migration
             'categories',
             'id'
         );
+        $this->addForeignKey(
+            'fk-user-updated_by',
+            'goodscatalog',
+            'updated_by',
+            'users',
+            'id'
+        );
+        $this->insert('goodscatalog', [
+            'name' => 'ball',
+            'description' => 'for football',
+            'price' => 20,
+            'categoryID' => 1,
+            'createTime' => date('Y-m-d H:i:s', time()),
+            'updateTime' => date('Y-m-d H:i:s', time())
+        ]);
 
     }
 

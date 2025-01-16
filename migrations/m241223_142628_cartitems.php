@@ -17,6 +17,7 @@ class m241223_142628_cartitems extends Migration
             'userID' => $this->integer()->notNull(),
             'goodID' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
+            'updated_by' => $this->integer(),
             'createTime' => $this->dateTime()->notNull(),
             'updateTime' => $this->dateTime()->notNull(),
         ]);

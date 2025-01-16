@@ -17,9 +17,17 @@ class m241219_120411_categories extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull()->unique(),
             'description' => $this->text(),
+            'updated_by' => $this->integer(),
             'createTime' => $this->dateTime()->notNull(),
             'updateTime' => $this->dateTime()->notNull(),
         ]);
+        $this->addForeignKey(
+            'fk-user-updated_by',
+            'categories',
+            'updated_by',
+            'users',
+            'id'
+        );
 
         $this->insert('categories', [
             'name' => 'sport',

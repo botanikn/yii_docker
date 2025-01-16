@@ -19,6 +19,7 @@ class m241219_122145_goodsinorders extends Migration
             'orderID' => $this->integer()->notNull(),
             'goodID' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
+            'updated_by' => $this->integer(),
             'createTime' => $this->dateTime()->notNull(),
             'updateTime' => $this->dateTime()->notNull(),
         ]);
