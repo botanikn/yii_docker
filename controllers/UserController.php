@@ -9,6 +9,8 @@ use app\models\User;
 use Yii;
 use yii\helpers\Url;
 use yii\bootstrap5\Html;
+use \yii\symfonymailer\Mailer;
+use \yii\symfonymailer\Message;
 
 class UserController extends Controller {
 
@@ -39,9 +41,9 @@ class UserController extends Controller {
 
                 $resetUrl = Url::to(['user/reset-password', 'token' => urlencode($user->password_reset_token)], true);
                 try {
-                    Yii::$app->mailer->compose('layouts/html')
-                        ->setFrom('german_string@mail.ru')
-                        ->setTo($requestModel->email)
+                    Yii::$app->mailer->compose()
+                        ->setFrom('german_string@pet.com')
+                        ->setTo('horizon_dawn@pet.com')
                         ->setSubject('Восстановление пароля')
                         ->setHtmlBody(Html::a('Сбросить пароль', $resetUrl))
                         ->send();

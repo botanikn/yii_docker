@@ -27,18 +27,18 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => \yii\symfonymailer\Mailer::class,
+            'class' => 'yii\symfonymailer\Mailer',
             'transport' => [
-                // 'scheme' => 'smtp',
-                'dsn' => 'smtp://german_string@mail.ru:1594yub28@smtp.mail.ru:465',
-                // 'host' => 'smtp.mail.ru', // Адрес SMTP-сервера
-                // 'username' => 'german_string@mail.ru', // Ваш email
-                // 'password' => '1594yub28', // Ваш пароль
-                // 'port' => '465', // Порт SMTP-сервера
+                'scheme' => 'smtp',
+                // 'dsn' => 'smtp://german_string@pet.com:111111@localhost:25',
+                'host' => 'localhost', // Адрес SMTP-сервера
+                'username' => 'admin', // Ваш email
+                'password' => 'moohoo', // Ваш пароль
+                'port' => '25', // Порт SMTP-сервера
                 // 'encryption' => 'ssl', // Тип шифрования
             ],
             'viewPath' => '@app/mail',
-            'useFileTransport' => true, // Установите false для реальной
+            'useFileTransport' => false, // Установите false для реальной
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
