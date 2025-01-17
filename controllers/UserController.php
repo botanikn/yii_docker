@@ -37,12 +37,21 @@ class UserController extends Controller {
                 $user->generatePasswordResetToken();
                 $user->save();
 
-                $resetUrl = Url::to(['user/reset-password', 'token' => $user->password_reset_token], true);
-                Yii::$app->mailer->compose()
-                ->setTo($requestModel->email)
-                ->setSubject('Восстановление пароля')
-                ->setHtmlBody(Html::a('Сбросить пароль', $resetUrl))
-                ->send();
+                $resetUrl = Url::to(['user/reset-password', 'token' => urlencode($user->password_reset_token)], true);
+                try {
+                    Yii::$app->mailer->compose('layouts/html')
+                        ->setFrom('german_string@mail.ru')
+                        ->setTo($requestModel->email)
+                        ->setSubject('Восстановление пароля')
+                        ->setHtmlBody(Html::a('Сбросить пароль', $resetUrl))
+                        ->send();
+
+                    Yii::$app->session->setFlash('success', 'Письмо было отправлено на почту ' . $requestModel->email);
+                    return $this->redirect(['site/login']);
+                } catch (\Exception $e) {
+                    Yii::$app->session->setFlash('error', 'Ошибка при отправке письма: ' . $e->getMessage());
+                    return $this->redirect(['user/request-password-reset']);
+                }
             }
         }
         return $this->render('requestPasswordReset', ['model' => $requestModel]);

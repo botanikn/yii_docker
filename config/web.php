@@ -27,20 +27,18 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-        'class' => 'yii\swiftmailer\Mailer',
-        'useFileTransport' => false, // Установите false для реальной отправки писем
-        'transport' => [
-            'class' => 'Swift_SmtpTransport',
-            'host' => 'smtp.mail.ru', // Адрес SMTP-сервера
-            'username' => 'german_string@mail.ru', // Ваш email
-            'password' => '1594yub28', // Ваш пароль
-            'port' => '465', // Порт SMTP-сервера
-            'encryption' => 'ssl', // Тип шифрования
-        ],
-        'messageConfig' => [
-        'charset' => 'UTF-8',
-        'from' => ['german_string@mail.ru' => 'Имя отправителя'], // Укажите почту и имя отправителя по умолчанию
-        ],
+            'class' => \yii\symfonymailer\Mailer::class,
+            'transport' => [
+                // 'scheme' => 'smtp',
+                'dsn' => 'smtp://german_string@mail.ru:1594yub28@smtp.mail.ru:465',
+                // 'host' => 'smtp.mail.ru', // Адрес SMTP-сервера
+                // 'username' => 'german_string@mail.ru', // Ваш email
+                // 'password' => '1594yub28', // Ваш пароль
+                // 'port' => '465', // Порт SMTP-сервера
+                // 'encryption' => 'ssl', // Тип шифрования
+            ],
+            'viewPath' => '@app/mail',
+            'useFileTransport' => true, // Установите false для реальной
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -54,10 +52,10 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
-            'showScriptName' => true,
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
             'rules' => [
-               '' => '',
+               'user/reset-password/<token:[\w-]+>' => 'user/reset-password'
             ],
         ],
 
