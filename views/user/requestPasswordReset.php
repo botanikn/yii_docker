@@ -12,6 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email') ?>
 
-    <?= Html::submitButton('Sign Up', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
 
 <?php $form = ActiveForm::end(); ?>
