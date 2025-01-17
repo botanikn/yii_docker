@@ -28,7 +28,6 @@ class GoodController extends UserController {
         $this->goodForm = new GoodForm();
         $this->categoryModel = new CategoryActiveRecord();
         $this->cartModel = new CartActiveRecord();
-
         $this->query = new Query();
         $this->goodService = new GoodService();
         $this->cartService = new CartService();
@@ -40,23 +39,6 @@ class GoodController extends UserController {
         $allGoodsWithCategories = $this->goodService->getGoodsJoinCatJoinCart($this->query);
 
         $allItemsInCarts = $this->cartModel::find()->orderBy(['goodID' => SORT_ASC])->all();
-
-//        $allGoodsInCart = $this->cartService->findGoodsInCart($this->query);
-//        $isEmpty = false;
-//        if (empty($allGoodsInCart)) {
-//            $isEmpty = true;
-//        }
-
-//        if (Yii::$app->request->isPost && Yii::$app->user->identity->roleID == 2) {
-//
-//            // Все товары в корзине текущего пользователя
-//            $query = $this->cartService->findClientCart($this->cartModel);
-//
-//
-//            // Добавление товара в корзину
-//            $this->cartService->addItemInCart($query, $this->cartModel);
-//
-//        }
 
         return $this->render('readall', ['allGoods' => $allGoodsWithCategories, 'allItemsInCarts' => $allItemsInCarts]);
     }

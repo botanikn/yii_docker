@@ -24,7 +24,7 @@ class OrderController extends UserController {
     public function init()
     {
         parent::init();
-        // Создаем экземпляр CategoryActiveRecord и помещаем его в свойство
+        // Создаем экземпляры классов и помещаем их в поля контроллера
         $this->orderModel = new OrderActiveRecord();
         $this->cartModel = new CartActiveRecord();
         $this->cartService = new CartService();
@@ -93,6 +93,7 @@ class OrderController extends UserController {
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
 
             $order->status = Yii::$app->request->post()['OrderForm']['status'];
+            $order->updatedd_by = Yii::$app->user->identity->id;
             $order->updateTime = date('Y-m-d H:i:s', time());
 
             if ($order->save()) {
