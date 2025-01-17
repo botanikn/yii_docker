@@ -43,6 +43,15 @@ services:
     networks:
       - yii-network
 
+  postfix:
+    build: ./smtp
+    container_name: yii-postfix
+    ports:
+      - "25:25"
+      - "143:143"
+      - "110:110"
+    restart: always
+
 volumes:
   db_data:
 
