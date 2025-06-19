@@ -18,7 +18,7 @@ class m241219_120920_orders extends Migration
         $this->createTable('orders', [
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull(),
-            'status' => 'status NOT NULL DEFAULT \'received\'',
+            'status' => $this->string()->notNull()->defaultValue('received'),
             't_price' => $this->integer()->notNull(),
             'customerID' => $this->integer()->notNull(),
             'updated_by' => $this->integer(),
